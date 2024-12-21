@@ -8,7 +8,7 @@
    
 2. Перейдите в нее:
     ```bash
-    cd TrainingSchedulesKuz
+    cd desk
     ```
 
 3. Создайте виртуальное окружение:
