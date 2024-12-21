@@ -3,7 +3,7 @@
 
 1. Склонируйте репозиторий на свой локальный компьютер:
    ```bash
-   git clone ....................
+   git clone https://github.com/bayazitkunchaki/desk.git
    ```
    
 2. Перейдите в нее:
