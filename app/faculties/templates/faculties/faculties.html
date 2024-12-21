@@ -1,0 +1,23 @@
+{% extends 'faculties/base.html' %}
+
+{% block content %}
+    <div class="faculty-list">
+        <h1 class="text-center">Факультеты</h1>
+        <div class="faculty-cards">
+        {% if faculties %}
+            {% for faculty in faculties %}
+                <div class="faculty-card">
+                    <h3>{{ faculty.name }}</h3>
+                    <a href="{% url 'faculties:courses' faculty.slug %}" class="view-courses-btn">Посмотреть курсы</a>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="no-content" style="text-align: center; padding: 50px 0;">
+                <h2 style="font-size: 24px; color: #555; font-weight: bold;">Здесь пока ничего нет.</h2>
+                <p style="font-size: 18px; color: #888;">Пожалуйста, добавьте данные, чтобы они отобразились здесь.</p>
+            </div>
+        {% endif %}
+        </div>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,35 @@
+{% extends 'faculties/base.html' %}
+
+{% load static %}
+
+{% block css %}
+    <link href="{% static 'deps/css/index.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <section>
+        <!--    <div class="alert alert-light text-center" role="alert">-->
+        <!--        Информационное сообщение-->
+        <!--    </div>-->
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h1 class="mt-5">Расписание Белгородского Государственного Аграрного Университета им. В.Я. Горина</h1>
+
+                    <button id="start-purchase-btn" type="button" class="btn btn-lg">
+                        <a id="start-purchase-link" href="{% url 'faculties:faculties_view' %}">
+                            <i class="fas fa-calendar-check"></i>
+                            К расписанию
+                        </a>
+                    </button>
+                    <button id="start-purchase-btn" type="button" class="btn btn-lg">
+                        <a id="start-purchase-link" href="{% url 'teacher_schedule' %}">
+                            <i class="fas fa-users"></i>
+                            Расписание для учителей
+                        </a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

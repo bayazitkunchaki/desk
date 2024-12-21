@@ -1,0 +1,97 @@
+{% extends 'faculties/base.html' %}
+
+{% block content %}
+<div class="container" style="max-width: 1200px; margin-top: 50px;">
+    <h1 style="text-align: center; font-size: 36px; color: #2C3E50;">Управление расписанием</h1>
+
+    <!-- Форма для добавления занятия -->
+    <div class="form-container" style="background-color: #F7F7F7; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+        <h2 style="font-size: 24px; margin-bottom: 20px;">Добавить занятие</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.as_p }}
+            </div>
+            <button type="submit" class="btn-submit" style="background-color: #1c6275; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">
+                Добавить занятие
+            </button>
+        </form>
+    </div>
+
+    <!-- Существующее расписание -->
+    <h2 style="font-size: 28px; margin-top: 40px; text-align: center;">Существующее расписание</h2>
+    <table class="schedule-table" style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+        <thead style="background-color: #1c6275; color: white; ">
+            <tr>
+                <th>Предмет</th>
+                <th>Преподаватель</th>
+                <th>Группа</th>
+                <th>Тип занятия</th>
+                <th>Дата</th>
+                <th>Номер пары</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for schedule in schedules %}
+                <tr style="border-bottom: 1px solid #ddd;">
+                    <td>{{ schedule.subject.name }}</td>
+                    <td>{{ schedule.teacher.first_name }} {{ schedule.teacher.last_name }}</td>
+                    <td>{{ schedule.group.name }}</td>
+                    <td>{{ schedule.get_lesson_type_display }}</td>
+                    <td>{{ schedule.date }}</td>
+                    <td>{{ schedule.pair_number }}</td>
+                    <td>
+                        <a href="{% url 'edit_schedule' schedule.id %}" style="color: #1c6275; text-decoration: none;">Редактировать</a> |
+                        <a href="{% url 'delete_schedule' schedule.id %}" style="color: red; text-decoration: none;">Удалить</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<style>
+    .schedule-table tbody tr:hover {
+        background-color: #f0f8ff;
+        transition: background-color 0.3s ease;
+    }
+
+    .schedule-table thead tr:hover {
+        background-color: #1c6275;
+    }
+    .form-container {
+        margin-bottom: 30px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        font-size: 16px;
+        font-weight: bold;
+    }
+    .form-group input, .form-group select, .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+    .btn-submit:hover {
+        background-color: #155a60;
+    }
+    .schedule-table th, .schedule-table td {
+        padding: 12px 20px;
+        text-align: left;
+        font-size: 16px;
+    }
+    .schedule-table tr:hover {
+        background-color: #f1f1f1;
+    }
+
+</style>
+
+{% endblock %}

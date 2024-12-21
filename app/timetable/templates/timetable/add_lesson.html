@@ -1,0 +1,73 @@
+{% extends 'faculties/base.html' %}
+
+{% block content %}
+<div class="container" style="max-width: 1200px; margin-top: 50px;">
+    <h1 style="text-align: center; font-size: 36px; color: #2C3E50;">Добавить занятие для группы {{ group.name }}</h1>
+
+    <div class="form-container" style="background-color: #F7F7F7; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+        <h2 style="font-size: 24px; margin-bottom: 20px;">Добавить занятие</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.as_p }}
+            </div>
+
+            {% if selected_date %}
+                <input type="hidden" name="date" value="{{ selected_date }}">
+            {% endif %}
+
+            <button type="submit" class="btn-submit" style="background-color: #1c6275; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">
+                Добавить занятие
+            </button>
+        </form>
+    </div>
+
+    <div style="margin-top: 40px;">
+        <h3>Группа: {{ group.name }}</h3>
+        <h3>Курс: {{ group.course }}</h3>
+
+        {% if selected_date %}
+            <p><strong>Выбранная дата:</strong> {{ selected_date }}</p>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+    .form-container {
+        margin-bottom: 30px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .form-group input, .form-group select, .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    .btn-submit:hover {
+        background-color: #155a60;
+    }
+
+    .schedule-table th, .schedule-table td {
+        padding: 12px 20px;
+        text-align: left;
+        font-size: 16px;
+    }
+
+    .schedule-table tr:hover {
+        background-color: #f1f1f1;
+    }
+</style>
+
+{% endblock %}

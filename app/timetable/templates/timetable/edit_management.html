@@ -1,0 +1,38 @@
+{% extends 'faculties/base.html' %}
+
+{% block content %}
+<h1 style="font-size: 32px; color: #1c6275; text-align: center; margin-bottom: 20px;">Редактировать занятие</h1>
+
+<form method="POST" style="max-width: 600px; margin: 0 auto; background-color: #f9f9f9; padding: 20px; border-radius: 8px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" style="display: block; width: 100%; padding: 10px 15px; background-color: #1c6275; color: white; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; transition: background-color 0.3s ease;">
+        Сохранить изменения
+    </button>
+</form>
+
+<style>
+    /* Стили для кнопки при наведении */
+    button[type="submit"]:hover {
+        background-color: #15585f;
+    }
+
+    /* Стили для полей формы */
+    form input, form select, form textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 14px;
+    }
+
+    /* Стили для фокуса на полях формы */
+    form input:focus, form select:focus, form textarea:focus {
+        border-color: #1c6275;
+        outline: none;
+        box-shadow: 0 0 5px rgba(28, 98, 117, 0.5);
+    }
+</style>
+{% endblock %}

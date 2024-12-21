@@ -1,0 +1,27 @@
+{% extends 'faculties/base.html' %}
+
+{% block content %}
+    <h1>Курсы факультета {{ faculty.name }}</h1>
+
+    <div class="course-selection">
+        <a href="?course=1">Курс 1</a>
+        <a href="?course=2">Курс 2</a>
+        <a href="?course=3">Курс 3</a>
+        <a href="?course=4">Курс 4</a>
+        <a href="?course=5">Курс 5</a>
+    </div>
+
+    <h2 class="text-center">Группы</h2>
+    <ul class="course-list">
+        {% if groups %}
+            {% for group in groups %}
+                <li><a href="{% url 'timetable:group_schedule' group.slug %}">{{ group.name }}</a></li>
+            {% endfor %}
+        {% else %}
+            <div class="no-content" style="text-align: center; padding: 50px 0;">
+                <h2 style="font-size: 24px; color: #555; font-weight: bold;">Здесь пока ничего нет.</h2>
+                <p style="font-size: 18px; color: #888;">Группы не найдены.</p>
+            </div>
+        {% endif %}
+    </ul>
+{% endblock %}

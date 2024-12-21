@@ -1,0 +1,29 @@
+.lesson-type-lecture {
+    background-color: #e3f2fd;
+    color: #1c6275;
+}
+
+.lesson-type-lab {
+    background-color: #c8e6c9;
+    color: #388e3c;
+}
+
+.lesson-type-seminar {
+    background-color: #ffe0b2;
+    color: #f57c00;
+}
+
+.lesson-type-practical {
+    background-color: #fff9c4;
+    color: #fbc02d;
+}
+
+.lesson-type-exam {
+    background-color: #ff4e4e;
+    color: #fff;
+}
+
+.lesson-type-consultation {
+    background-color: #f3e5f5;
+    color: #7b1fa2;
+}

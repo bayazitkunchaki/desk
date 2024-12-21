@@ -1,0 +1,52 @@
+{% extends 'faculties/base.html' %}
+{% load custom_filter %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'deps/css/schedule_styles.css' %}">
+{% endblock %}
+{% block content %}
+<div style="margin-top: 70px;">
+    <form method="GET" action="" style="margin-bottom: 20px;">
+        <label for="start_date">С:</label>
+        <input type="date" name="start_date" id="start_date" value="{{ request.GET.start_date }}">
+        <label for="end_date">По:</label>
+        <input type="date" name="end_date" id="end_date" value="{{ request.GET.end_date }}">
+        <button type="submit" style="padding: 5px 10px; background-color: #1c6275; color: white; border: none; cursor: pointer;">Показать расписание</button>
+    </form>
+    <h1 style="margin-bottom: 20px;">Расписание для группы {{ group.name }}</h1>
+    <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+        {% for date in all_dates %}
+            <div style="border: 1px solid #ccc; border-radius: 8px; padding: 10px; width: 200px; background-color: #f9f9f9; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                <h3 style="font-size: 16px; margin-bottom: 10px; text-align: center; color: #333; display: flex; justify-content: space-between; align-items: center;">
+                    {{ date|date:"l, d F" }}
+                    {% if user.is_moderator or user.is_superuser or user.is_staff %}
+                        <a href="{% url 'timetable:add_lesson' group_slug=group.slug %}?date={{ date|date:'Y-m-d' }}"
+                           style="color: #1c6275; font-size: 20px; text-decoration: none; margin-left: 10px;">+</a>
+                    {% endif %}
+                </h3>
+                {% if grouped_schedule|get_item:date %}
+                    {% for lesson in grouped_schedule|get_item:date %}
+                        <div class="lesson {{ lesson.lesson_type|lesson_type_class }}" style="border-bottom: 1px solid #ddd; padding: 15px 5px; font-size: 14px; position: relative;">
+                            <div style="position: absolute; top: 5px; right: 10px; background-color: #1c6275; color: white; font-size: 12px; font-weight: bold; border-radius: 4px; padding: 2px 5px;">
+                                {{ lesson.pair_number }}
+                            </div>
+                            <div style="font-weight: bold; color: #444;">{{ lesson.subject }}</div>
+                            <div style="font-size: 12px; color: #666;">
+                                Преподаватель: {{ lesson.teacher.first_name }} {{ lesson.teacher.last_name }}
+                            </div>
+                            <div style="font-size: 12px; color: #444; margin-top: 5px;">
+                                Тип занятия: {{ lesson.get_lesson_type_display }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div style="text-align: center; font-size: 14px; color: #888; margin-top: 20px;">
+                        Занятий нет
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
